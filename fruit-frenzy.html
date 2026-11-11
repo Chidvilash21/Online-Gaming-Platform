@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nexus Arena | Fruit Frenzy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root { --text:#edf6ff; --muted:#9fb6dd; --border:rgba(255,255,255,0.14); }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family:Inter,sans-serif; color:var(--text); background:linear-gradient(160deg,#050a14 0%,#111a2d 100%); }
+    .game-root { position:relative; min-height:100vh; padding:24px 22px 28px; }
+    .game-shell { max-width:900px; margin:0 auto; transition:filter .28s ease; }
+    .game-shell.finished { filter: blur(3px) brightness(.85); }
+    .hud { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:12px; }
+    .pill { padding:10px 12px; border-radius:12px; border:1px solid var(--border); background:rgba(255,255,255,.06); backdrop-filter:blur(14px); color:var(--muted); }
+    .pill strong { color:var(--text); }
+    .stage { position:relative; height:560px; border-radius:18px; border:1px solid var(--border); overflow:hidden; background:radial-gradient(circle at 20% 20%,rgba(124,92,255,.24),transparent 42%),radial-gradient(circle at 80% 12%,rgba(51,209,255,.18),transparent 40%),linear-gradient(180deg,rgba(7,12,22,.95),rgba(12,20,33,.95)); }
+    .fruit { position:absolute; display:grid; place-items:center; border-radius:999px; border:1px solid rgba(255,255,255,.16); background:rgba(255,255,255,.12); font-size:1.8rem; cursor:pointer; user-select:none; box-shadow:0 10px 24px rgba(0,0,0,.32); }
+    .fruit.combo { box-shadow:0 0 0 2px rgba(51,209,255,.2),0 10px 24px rgba(0,0,0,.32); }
+    .fruit.bomb { border-color:rgba(255,84,84,.45); background:rgba(255,84,84,.22); }
+    .status { margin:12px 0 0; color:#dcecff; }
+    .glass-board { position:fixed; top:20px; right:22px; width:260px; border-radius:16px; border:1px solid var(--border); background:rgba(13,24,40,.62); backdrop-filter:blur(18px); box-shadow:0 16px 38px rgba(0,0,0,.32); padding:14px 14px 12px; }
+    .glass-board h3 { margin:0 0 8px; font-size:1rem; }
+    .glass-board ol { margin:0; padding-left:18px; display:grid; gap:8px; }
+    .glass-board li { color:#dcecff; font-size:.88rem; }
+    .summary-layer { position:fixed; inset:0; display:none; align-items:center; justify-content:center; padding:20px; background:rgba(4,8,14,.42); }
+    .summary-layer.show { display:flex; }
+    .summary-card { width:min(480px,100%); border-radius:20px; border:1px solid var(--border); background:rgba(11,21,35,.78); backdrop-filter:blur(18px); box-shadow:0 18px 44px rgba(0,0,0,.42); padding:20px; }
+    .summary-card h2 { margin:0 0 10px; }
+    .summary-grid { display:grid; gap:10px; margin:12px 0 16px; }
+    .summary-row { display:flex; justify-content:space-between; gap:10px; padding:10px 12px; border-radius:12px; border:1px solid var(--border); background:rgba(255,255,255,.04); }
+    .summary-actions { display:flex; gap:10px; justify-content:flex-end; }
+    .btn { border:none; border-radius:12px; padding:10px 16px; font-weight:700; cursor:pointer; }
+    .btn-primary { background:linear-gradient(135deg,#7c5cff,#33d1ff); color:#fff; }
+    .btn-ghost { border:1px solid var(--border); color:var(--text); background:rgba(255,255,255,.06); }
+  </style>
+</head>
+<body>
+  <div class="game-root">
+    <div class="game-shell" id="gameShell">
+      <h1 style="margin:0 0 6px;">Fruit Frenzy Arena</h1>
+      <p style="margin:0 0 12px;color:#9fb6dd;">Slice scoring fruits, chain combos, and avoid bombs.</p>
+      <div class="hud">
+        <div class="pill">Score <strong id="score">0</strong></div>
+        <div class="pill">Combo <strong id="combo">x0</strong></div>
+        <div class="pill">Bonus <strong id="bonus">+0</strong></div>
+        <div class="pill">Pace <strong id="pace">1.00x</strong></div>
+        <div class="pill">Lives <strong id="lives">3</strong></div>
+        <div class="pill">Time <strong id="timer">60s</strong></div>
+      </div>
+      <div id="stage" class="stage"></div>
+      <p id="status" class="status">Round started.</p>
+    </div>
+    <aside class="glass-board">
+      <h3>Leaderboard</h3>
+      <ol id="leaderboard"></ol>
+    </aside>
+    <div class="summary-layer" id="summaryLayer">
+      <div class="summary-card">
+        <h2>Run Complete</h2>
+        <div class="summary-grid">
+          <div class="summary-row"><span>Score</span><strong id="summaryScore">0</strong></div>
+          <div class="summary-row"><span id="summaryHighLabel">High Score</span><strong id="summaryHighScore">0</strong></div>
+          <div class="summary-row"><span>Total Bonuses</span><strong id="summaryBonuses">0</strong></div>
+          <div class="summary-row"><span>Leaderboard Place</span><strong id="summaryPlace">#-</strong></div>
+        </div>
+        <div class="summary-actions">
+          <button id="closeBtn" class="btn btn-ghost" type="button">Close</button>
+          <button id="playAgainBtn" class="btn btn-primary" type="button">Play Again</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const userFromQuery = new URLSearchParams(window.location.search).get("user");
+    const memberName = userFromQuery || localStorage.getItem("nexusArenaUser");
+    if (!memberName) {
+      window.location.href = "login.html";
+    }
+
+    const fruitTypes = [
+      { type: "score", icon: "🍎", base: 15 },
+      { type: "score", icon: "🍇", base: 16 },
+      { type: "combo", icon: "🍓", base: 18 },
+      { type: "combo", icon: "🍊", base: 17 },
+      { type: "bomb", icon: "💣", base: 0 }
+    ];
+
+    const stage = document.getElementById("stage");
+    const scoreEl = document.getElementById("score");
+    const comboEl = document.getElementById("combo");
+    const bonusEl = document.getElementById("bonus");
+    const paceEl = document.getElementById("pace");
+    const livesEl = document.getElementById("lives");
+    const timerEl = document.getElementById("timer");
+    const statusEl = document.getElementById("status");
+    const leaderboardEl = document.getElementById("leaderboard");
+    const summaryLayer = document.getElementById("summaryLayer");
+    const summaryScore = document.getElementById("summaryScore");
+    const summaryHighLabel = document.getElementById("summaryHighLabel");
+    const summaryHighScore = document.getElementById("summaryHighScore");
+    const summaryBonuses = document.getElementById("summaryBonuses");
+    const summaryPlace = document.getElementById("summaryPlace");
+    const gameShell = document.getElementById("gameShell");
+
+    summaryHighLabel.textContent = `High Score (${memberName})`;
+
+    let score = 0;
+    let combo = 0;
+    let maxCombo = 0;
+    let lastBonus = 0;
+    let totalBonuses = 0;
+    let lives = 3;
+    let secondsLeft = 60;
+    let running = false;
+    let timerTicker = null;
+    let frameHandle = null;
+    let lastFrameTime = 0;
+    let spawnAccumulator = 0;
+    let leaderboardRows = [];
+    const entities = new Map();
+
+    function getPaceMultiplier(value) {
+      return 1 + Math.min(value / 2500, 0.28);
+    }
+
+    function getSpawnInterval(value) {
+      return Math.max(600, 920 - Math.floor(value / 24));
+    }
+
+    async function fetchLeaderboard(limit) {
+      const response = await fetch(`/api/frenzy-leaderboard?limit=${encodeURIComponent(limit)}`);
+      if (!response.ok) {
+        throw new Error("Unable to load leaderboard");
+      }
+      const payload = await response.json();
+      leaderboardRows = Array.isArray(payload.leaderboard) ? payload.leaderboard : [];
+      renderLeaderboard();
+    }
+
+    function renderLeaderboard() {
+      if (!leaderboardRows.length) {
+        leaderboardEl.innerHTML = "<li>No scores yet</li>";
+        return;
+      }
+      leaderboardEl.innerHTML = leaderboardRows.slice(0, 6).map(function (entry, index) {
+        return `<li>#${index + 1} ${entry.displayName} - ${entry.score}</li>`;
+      }).join("");
+    }
+
+    function updateHud() {
+      scoreEl.textContent = String(score);
+      comboEl.textContent = `x${combo}`;
+      bonusEl.textContent = `+${lastBonus}`;
+      paceEl.textContent = `${getPaceMultiplier(score).toFixed(2)}x`;
+      livesEl.textContent = String(lives);
+      timerEl.textContent = `${secondsLeft}s`;
+    }
+
+    function clearEntities() {
+      entities.forEach(function (_, id) {
+        const node = document.getElementById(id);
+        if (node) node.remove();
+      });
+      entities.clear();
+    }
+
+    async function submitScore() {
+      const response = await fetch("/api/frenzy-score", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username: memberName,
+          score: score,
+          maxCombo: maxCombo,
+          bonuses: totalBonuses
+        })
+      });
+      const payload = await response.json();
+      if (!response.ok) {
+        throw new Error(payload.message || "Unable to submit score");
+      }
+      leaderboardRows = Array.isArray(payload.leaderboard) ? payload.leaderboard : [];
+      renderLeaderboard();
+      return {
+        username: payload.username || memberName,
+        highScore: Number(payload.highScore) || 0
+      };
+    }
+
+    async function endRound(reason) {
+      running = false;
+      if (timerTicker) {
+        clearInterval(timerTicker);
+        timerTicker = null;
+      }
+      if (frameHandle) {
+        cancelAnimationFrame(frameHandle);
+        frameHandle = null;
+      }
+
+      let highScore = 0;
+      let submittedUsername = memberName;
+      try {
+        const result = await submitScore();
+        highScore = result.highScore;
+        submittedUsername = result.username;
+      } catch (error) {
+        statusEl.textContent = error.message;
+      }
+
+      const playerIndex = leaderboardRows.findIndex(function (entry) {
+        return entry.username === submittedUsername;
+      });
+
+      gameShell.classList.add("finished");
+      summaryScore.textContent = String(score);
+      summaryHighScore.textContent = String(highScore);
+      summaryBonuses.textContent = String(totalBonuses);
+      summaryPlace.textContent = playerIndex >= 0 ? `#${playerIndex + 1}` : "#-";
+      statusEl.textContent = reason;
+      summaryLayer.classList.add("show");
+    }
+
+    function spawnFruit() {
+      const descriptor = fruitTypes[Math.floor(Math.random() * fruitTypes.length)];
+      const id = `fruit-${Date.now()}-${Math.floor(Math.random() * 10000)}`;
+      const size = 46 + Math.floor(Math.random() * 14);
+      const stageWidth = Math.max(stage.clientWidth, 700);
+      const x = Math.max(10, Math.floor(Math.random() * (stageWidth - size - 20)));
+      const node = document.createElement("button");
+      node.id = id;
+      node.type = "button";
+      node.className = `fruit ${descriptor.type}`;
+      node.style.left = `${x}px`;
+      node.style.top = "-72px";
+      node.style.width = `${size}px`;
+      node.style.height = `${size}px`;
+      node.textContent = descriptor.icon;
+      stage.appendChild(node);
+
+      entities.set(id, { y: -72, speed: (82 + Math.random() * 42) * getPaceMultiplier(score), descriptor: descriptor });
+
+      node.addEventListener("click", function () {
+        if (!running) return;
+        const item = entities.get(id);
+        if (!item) return;
+        entities.delete(id);
+        node.remove();
+
+        if (item.descriptor.type === "bomb") {
+          lives -= 1;
+          combo = 0;
+          lastBonus = 0;
+          updateHud();
+          if (lives <= 0) {
+            void endRound("Boom! No lives left.");
+          } else {
+            statusEl.textContent = `Bomb hit! ${lives} lives left.`;
+          }
+          return;
+        }
+
+        combo += 1;
+        maxCombo = Math.max(maxCombo, combo);
+        const base = item.descriptor.base;
+        const comboBonus = Math.floor(base * Math.min(combo, 8) * 0.14);
+        const streakBonus = combo >= 3 ? combo * 5 : 0;
+        const paceBonus = Math.floor((getPaceMultiplier(score) - 1) * 20);
+        const typeBonus = item.descriptor.type === "combo" ? 8 : 0;
+        lastBonus = comboBonus + streakBonus + paceBonus + typeBonus;
+        totalBonuses += lastBonus;
+        score += base + lastBonus;
+        updateHud();
+        statusEl.textContent = combo > 1 ? `Combo x${combo}! +${base + lastBonus} pts` : `Great slice! +${base + lastBonus} pts`;
+      });
+    }
+
+    function animate(frameTime) {
+      if (!running) return;
+      if (!lastFrameTime) lastFrameTime = frameTime;
+      const deltaSeconds = (frameTime - lastFrameTime) / 1000;
+      lastFrameTime = frameTime;
+      spawnAccumulator += deltaSeconds * 1000;
+      const stageHeight = Math.max(stage.clientHeight, 500);
+
+      entities.forEach(function (item, id) {
+        item.y += item.speed * deltaSeconds;
+        const node = document.getElementById(id);
+        if (!node) {
+          entities.delete(id);
+          return;
+        }
+        if (item.y > stageHeight + 20) {
+          entities.delete(id);
+          node.remove();
+          if (item.descriptor.type !== "bomb") {
+            combo = 0;
+            lastBonus = 0;
+            lives -= 1;
+            updateHud();
+            if (lives <= 0) {
+              void endRound("No lives left. Round ended.");
+            } else {
+              statusEl.textContent = `Missed fruit! ${lives} lives left.`;
+            }
+          }
+          return;
+        }
+        node.style.transform = `translateY(${item.y}px) rotate(${item.y * 0.18}deg)`;
+      });
+
+      while (spawnAccumulator >= getSpawnInterval(score) && entities.size < 14) {
+        spawnFruit();
+        spawnAccumulator -= getSpawnInterval(score);
+      }
+      frameHandle = requestAnimationFrame(animate);
+    }
+
+    function startRound() {
+      summaryLayer.classList.remove("show");
+      gameShell.classList.remove("finished");
+      score = 0;
+      combo = 0;
+      maxCombo = 0;
+      lastBonus = 0;
+      totalBonuses = 0;
+      lives = 3;
+      secondsLeft = 60;
+      running = true;
+      spawnAccumulator = 0;
+      lastFrameTime = 0;
+      clearEntities();
+      statusEl.textContent = "Round started. Score big with combos.";
+      updateHud();
+
+      timerTicker = setInterval(function () {
+        if (!running) return;
+        secondsLeft -= 1;
+        updateHud();
+        if (secondsLeft <= 0) {
+          void endRound(`Time up! Final score: ${score}`);
+        }
+      }, 1000);
+
+      spawnFruit();
+      frameHandle = requestAnimationFrame(animate);
+    }
+
+    document.getElementById("playAgainBtn").addEventListener("click", startRound);
+    document.getElementById("closeBtn").addEventListener("click", function () {
+      summaryLayer.classList.remove("show");
+    });
+
+    fetchLeaderboard(8).catch(function (error) {
+      statusEl.textContent = error.message;
+    });
+    startRound();
+    setInterval(function () {
+      fetchLeaderboard(8).catch(function () {});
+    }, 2500);
+  </script>
+</body>
+</html>

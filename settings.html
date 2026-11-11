@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nexus Arena | Settings</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="account.css" />
+</head>
+<body>
+  <div class="shell">
+    <header class="page-head">
+    <div class="brand" aria-label="Nexus Arena">
+      <span class="brand-mark">N</span>
+    </div>
+    <a href="dashboard.html" class="back-link">Back to Dashboard</a>
+  </header>
+
+    <section class="hero-card">
+      <div>
+        <p class="eyebrow">Account Settings</p>
+        <h1 id="settingsName">NovaK</h1>
+        <p>Manage your profile, gameplay preferences, notifications, and security.</p>
+      </div>
+      <div class="card-stack">
+        <div class="info-card">
+          <span class="pill">Privacy</span>
+          <strong>Friends only</strong>
+          <p>Profile visibility and match activity</p>
+        </div>
+        <div class="info-card">
+          <span class="pill">Security</span>
+          <strong>Protected</strong>
+          <p>Password and 2FA controls active</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel menu-panel" style="margin-bottom: 22px;">
+      <p class="eyebrow">Categories</p>
+      <div class="menu-list" role="tablist" aria-label="Settings categories">
+        <button class="menu-btn active" type="button" data-target="profile">Profile</button>
+        <button class="menu-btn" type="button" data-target="gameplay">Gameplay</button>
+        <button class="menu-btn" type="button" data-target="security">Security</button>
+        <button class="menu-btn" type="button" data-target="notifications">Notifications</button>
+      </div>
+    </section>
+
+    <section class="grid">
+      <article class="panel settings-panel" id="profile">
+        <p class="eyebrow">Profile</p>
+        <h2>Edit Account</h2>
+        <div class="field-grid">
+          <label class="field">
+            <span>Display Name</span>
+            <input id="settingsDisplayName" type="text" value="NovaK" />
+          </label>
+          <label class="field">
+            <span>Email</span>
+            <input id="settingsEmail" type="email" value="novak@nexusarena.gg" />
+          </label>
+          <label class="field">
+            <span>Region</span>
+            <select id="settingsRegion">
+              <option>Asia / Mumbai</option>
+              <option>Europe / London</option>
+              <option>US East / New York</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>Preferred Role</span>
+            <select id="settingsRole">
+              <option>Entry Fragger</option>
+              <option>Support</option>
+              <option>Controller</option>
+              <option>Sniper</option>
+            </select>
+          </label>
+        </div>
+        <div class="actions">
+          <button class="primary-btn" id="saveProfileBtn" type="button">Save Changes</button>
+          <button class="secondary-btn" id="resetProfileBtn" type="button">Reset</button>
+        </div>
+        <p id="profileStatus" class="field-help" aria-live="polite"></p>
+      </article>
+
+      <article class="panel settings-panel hidden" id="gameplay">
+        <p class="eyebrow">Gameplay</p>
+        <h2>Preferences</h2>
+        <div class="toggle-row"><span>Show online status</span><span class="switch"></span></div>
+        <div class="toggle-row"><span>Match invites</span><span class="switch"></span></div>
+        <div class="toggle-row"><span>Rank update notifications</span><span class="switch"></span></div>
+        <div class="toggle-row"><span>Streamer mode</span><span class="switch"></span></div>
+      </article>
+
+      <article class="panel settings-panel hidden" id="security">
+        <p class="eyebrow">Security</p>
+        <h2>Login Protection</h2>
+        <ul class="list">
+          <li><span>Password</span><strong>Last changed 14 days ago</strong></li>
+          <li><span>Two-factor auth</span><strong>Enabled</strong></li>
+          <li><span>Active sessions</span><strong>1 device</strong></li>
+          <li><span>Recovery email</span><strong>Verified</strong></li>
+        </ul>
+      </article>
+
+      <article class="panel settings-panel hidden" id="notifications">
+        <p class="eyebrow">Notifications</p>
+        <h2>Alerts</h2>
+        <ul class="list">
+          <li><span>New tournament</span><strong>On</strong></li>
+          <li><span>Friend activity</span><strong>On</strong></li>
+          <li><span>Rewards & XP</span><strong>On</strong></li>
+          <li><span>Promotional emails</span><strong>Off</strong></li>
+        </ul>
+      </article>
+    </section>
+  </div>
+
+  <script>
+    let currentUser = localStorage.getItem("nexusArenaUser") || "NovaK";
+    const displayNameInput = document.getElementById("settingsDisplayName");
+    const emailInput = document.getElementById("settingsEmail");
+    const regionInput = document.getElementById("settingsRegion");
+    const roleInput = document.getElementById("settingsRole");
+    const statusMessage = document.getElementById("profileStatus");
+    const saveButton = document.getElementById("saveProfileBtn");
+    const resetButton = document.getElementById("resetProfileBtn");
+    document.getElementById("settingsName").textContent = currentUser;
+    document.title = `Nexus Arena | ${currentUser} Settings`;
+
+    const buttons = document.querySelectorAll(".menu-btn");
+    const panels = document.querySelectorAll(".settings-panel");
+
+    function showPanel(targetId) {
+      panels.forEach(function(panel) {
+        panel.classList.toggle("hidden", panel.id !== targetId);
+      });
+
+      buttons.forEach(function(button) {
+        button.classList.toggle("active", button.dataset.target === targetId);
+      });
+    }
+
+    buttons.forEach(function(button) {
+      button.addEventListener("click", function() {
+        showPanel(button.dataset.target);
+        window.location.hash = button.dataset.target;
+      });
+    });
+
+    async function loadProfile() {
+      const response = await fetch(`/api/profile/${encodeURIComponent(currentUser)}`);
+      if (!response.ok) {
+        throw new Error("Unable to load profile");
+      }
+
+      const profile = await response.json();
+      displayNameInput.value = profile.displayName || currentUser;
+      emailInput.value = profile.email || "";
+      regionInput.value = profile.region || "Asia / Mumbai";
+      roleInput.value = profile.preferredRole || "Entry Fragger";
+      document.getElementById("settingsName").textContent = profile.displayName || currentUser;
+    }
+
+    async function saveProfile() {
+      statusMessage.textContent = "Saving profile...";
+      const response = await fetch(`/api/profile/${encodeURIComponent(currentUser)}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          displayName: displayNameInput.value.trim(),
+          email: emailInput.value.trim(),
+          region: regionInput.value,
+          preferredRole: roleInput.value
+        })
+      });
+
+      const result = await response.json();
+      if (!response.ok) {
+        throw new Error(result.message || "Unable to save profile");
+      }
+
+      if (result.username) {
+        currentUser = result.username;
+        localStorage.setItem("nexusArenaUser", currentUser);
+      }
+
+      statusMessage.textContent = result.message;
+      document.getElementById("settingsName").textContent = displayNameInput.value.trim() || currentUser;
+      localStorage.setItem("nexusArenaProfileName", displayNameInput.value.trim() || currentUser);
+      document.title = `Nexus Arena | ${currentUser} Settings`;
+    }
+
+    saveButton.addEventListener("click", async function() {
+      try {
+        await saveProfile();
+      } catch (error) {
+        statusMessage.textContent = error.message;
+      }
+    });
+
+    resetButton.addEventListener("click", async function() {
+      try {
+        await loadProfile();
+        statusMessage.textContent = "Profile reset.";
+      } catch (error) {
+        statusMessage.textContent = error.message;
+      }
+    });
+
+    loadProfile().catch(function(error) {
+      statusMessage.textContent = error.message;
+    });
+
+    showPanel((window.location.hash || "#profile").replace("#", ""));
+  </script>
+</body>
+</html>

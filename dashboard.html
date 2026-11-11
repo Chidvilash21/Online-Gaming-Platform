@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nexus Arena | Player Dashboard</title>
+    <meta name="description" content="Player dashboard for tournaments, squads, and ranked progress." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="dashboard.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand-box">
+          <div class="brand-left">
+            <div class="brand-mark">N</div>
+            <div>
+              <p class="eyebrow">Gaming HQ</p>
+              <h2>Nexus Arena</h2>
+            </div>
+          </div>
+          <div class="brand-actions">
+            <button class="sidebar-toggle" id="sidebarToggle" type="button" aria-label="Toggle menu" aria-expanded="false">
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
+            <button class="brand-logout" id="logoutBtn" type="button">Logout</button>
+          </div>
+        </div>
+
+        <div class="sidebar-content collapsed" id="sidebarContent">
+          <nav class="side-nav" aria-label="Sidebar navigation">
+            <a href="dashboard.html" class="active">Overview</a>
+            <a href="#matches">Matches</a>
+            <a href="#squad">Squad</a>
+            <a href="#games">Games</a>
+            <a href="#leaderboards">Leaderboards</a>
+            <a href="#rewards">Rewards</a>
+            <a href="settings.html">Settings</a>
+          </nav>
+
+          <div class="sidebar-card">
+            <p class="mini-label">Season Pass</p>
+            <h3>Elite Tier</h3>
+            <div class="progress"><span style="width: 72%"></span></div>
+            <small>72% to Rank Diamond</small>
+          </div>
+        </div>
+      </aside>
+
+      <main class="main-panel">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Welcome back</p>
+            <h1>Good evening, <span id="memberName">NovaK</span></h1>
+          </div>
+
+          <div class="topbar-actions">
+            <button class="ghost-btn">Invite Squad</button>
+            <button class="primary-btn">Enter Queue</button>
+          </div>
+        </header>
+
+        <section class="stats-grid">
+          <article class="stat-card accent">
+            <p>Ranked MMR</p>
+            <h3>2860</h3>
+            <span>+120 this month</span>
+          </article>
+          <article class="stat-card">
+            <p>Win Rate</p>
+            <h3>74.8%</h3>
+            <span>18 wins in 24 matches</span>
+          </article>
+          <article class="stat-card">
+            <p>Current Streak</p>
+            <h3>9 W</h3>
+            <span>Best streak this season</span>
+          </article>
+          <article class="stat-card">
+            <p>Rewards</p>
+            <h3>5420 XP</h3>
+            <span>+12% this week</span>
+          </article>
+        </section>
+
+        <section class="content-grid">
+          <div class="main-column">
+            <section class="panel" id="matches">
+              <div class="panel-head">
+                <div>
+                  <p class="eyebrow">Upcoming</p>
+                  <h2>Live Matches</h2>
+                </div>
+                <a href="#" class="text-link">View all</a>
+              </div>
+
+              <div class="match-list">
+                <div class="match-item">
+                  <div class="match-team">
+                    <div class="avatar avatar-purple">A</div>
+                    <div>
+                      <strong>Team Alpha</strong>
+                      <small>Ranked 5v5</small>
+                    </div>
+                  </div>
+                  <div class="match-score">
+                    <span>18:12</span>
+                  </div>
+                  <div class="match-meta">
+                    <small>Tonight 8:30 PM</small>
+                    <button>Watch</button>
+                  </div>
+                </div>
+
+                <div class="match-item">
+                  <div class="match-team">
+                    <div class="avatar avatar-cyan">V</div>
+                    <div>
+                      <strong>Vortex Crew</strong>
+                      <small>Champions Open</small>
+                    </div>
+                  </div>
+                  <div class="match-score">
+                    <span>Pending</span>
+                  </div>
+                  <div class="match-meta">
+                    <small>Tomorrow 6:00 PM</small>
+                    <button>Register</button>
+                  </div>
+                </div>
+
+                <div class="match-item">
+                  <div class="match-team">
+                    <div class="avatar avatar-green">S</div>
+                    <div>
+                      <strong>Shadow Team</strong>
+                      <small>Pro League</small>
+                    </div>
+                  </div>
+                  <div class="match-score">
+                    <span>24:19</span>
+                  </div>
+                  <div class="match-meta">
+                    <small>Last night</small>
+                    <button class="outline">Replay</button>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section class="panel" id="squad">
+              <div class="panel-head">
+                <div>
+                  <p class="eyebrow">Squad</p>
+                  <h2>Team Composition</h2>
+                </div>
+                <a href="#" class="text-link">Manage</a>
+              </div>
+
+              <div class="roster-grid">
+                <article class="player-card">
+                  <div class="avatar-player avatar-purple">N</div>
+                  <h3>NovaK</h3>
+                  <p>Entry Fragger</p>
+                  <span>94% KDA</span>
+                </article>
+                <article class="player-card">
+                  <div class="avatar-player avatar-cyan">E</div>
+                  <h3>Echo</h3>
+                  <p>Support</p>
+                  <span>18 assists</span>
+                </article>
+                <article class="player-card">
+                  <div class="avatar-player avatar-green">B</div>
+                  <h3>Blaze</h3>
+                  <p>Controller</p>
+                  <span>Top 1% clutch</span>
+                </article>
+                <article class="player-card">
+                  <div class="avatar-player avatar-gold">V</div>
+                  <h3>Vex</h3>
+                  <p>Sniper</p>
+                  <span>87% headshot</span>
+                </article>
+              </div>
+            </section>
+
+            <section class="panel game-panel hidden" id="games">
+              <div class="panel-head">
+                <div>
+                  <p class="eyebrow">Arcade</p>
+                  <h2>Fruit Frenzy Preview</h2>
+                </div>
+              </div>
+              <div class="frenzy-shell">
+                <div class="frenzy-preview-shell">
+                  <div id="frenzyStage" class="frenzy-stage frenzy-preview-stage" aria-label="Fruit Frenzy preview stage">
+                    <div id="frenzyViewport" class="frenzy-viewport"></div>
+                  </div>
+                  <div id="previewCursor" class="preview-cursor" aria-hidden="true"></div>
+                  <div class="preview-overlay">
+                    <p class="mini-label">Preview Focus</p>
+                    <h3 id="previewFruitName">Scoring Fruit</h3>
+                    <p id="previewFruitHint">Fruits give points, combo fruits boost streaks, bombs are dangerous.</p>
+                    <button id="playFrenzyBtn" class="primary-btn" type="button">Play Now</button>
+                  </div>
+                </div>
+                <p id="frenzyStatus" class="frenzy-status">Watch the preview animation and click Play Now to open the full game in a new window.</p>
+              </div>
+            </section>
+          </div>
+
+          <aside class="side-column">
+            <section class="panel" id="leaderboards">
+              <div class="panel-head">
+                <div>
+                  <p class="eyebrow">Global</p>
+                  <h2>Leaderboard</h2>
+                </div>
+              </div>
+
+              <div class="leaderboard-list" id="mainLeaderboardList"></div>
+            </section>
+
+            <section class="panel" id="rewards">
+              <div class="panel-head">
+                <div>
+                  <p class="eyebrow">Rewards</p>
+                  <h2>Challenges</h2>
+                </div>
+              </div>
+
+              <ul class="rewards-list">
+                <li><span>Daily Quest</span><strong>+800 XP</strong></li>
+                <li><span>3 wins streak</span><strong>+1200 XP</strong></li>
+                <li><span>Team battle</span><strong>+1500 XP</strong></li>
+              </ul>
+            </section>
+          </aside>
+        </section>
+      </main>
+    </div>
+    <script>
+      const memberName = localStorage.getItem("nexusArenaUser");
+      if (!memberName) {
+        window.location.href = "login.html";
+      } else {
+        const logoutBtn = document.getElementById("logoutBtn");
+        const sidebarToggle = document.getElementById("sidebarToggle");
+        const sidebarContent = document.getElementById("sidebarContent");
+        const gamesPanel = document.getElementById("games");
+        const mainLeaderboardList = document.getElementById("mainLeaderboardList");
+        const frenzyStage = document.getElementById("frenzyStage");
+        const frenzyViewport = document.getElementById("frenzyViewport");
+        const previewCursor = document.getElementById("previewCursor");
+        const previewFruitName = document.getElementById("previewFruitName");
+        const previewFruitHint = document.getElementById("previewFruitHint");
+        const frenzyStatus = document.getElementById("frenzyStatus");
+        const playFrenzyBtn = document.getElementById("playFrenzyBtn");
+
+        const fruitTypes = [
+          { type: "score", icon: "🍎", name: "Scoring Fruit", hint: "Regular fruit adds clean score points.", base: 15 },
+          { type: "score", icon: "🍇", name: "Scoring Fruit", hint: "Safe slice with steady points.", base: 16 },
+          { type: "combo", icon: "🍓", name: "Combo Fruit", hint: "Boosts combo chain and bonus points.", base: 18 },
+          { type: "combo", icon: "🍊", name: "Combo Fruit", hint: "Good for stacking combo multipliers.", base: 17 },
+          { type: "bomb", icon: "💣", name: "Bomb", hint: "Danger! Bomb removes a life.", base: 0 }
+        ];
+        let leaderboardRefreshTimer = null;
+        let latestLeaderboard = [];
+
+        let previewFrameHandle = null;
+        let previewSpawnTicker = null;
+        let previewFocusTicker = null;
+        let previewLastFrame = 0;
+        let previewPauseLevel = 0;
+        let previewPauseTarget = 0;
+        let previewInfoTimeout = null;
+        let previewZoomTimeout = null;
+        let previewReleaseTimeout = null;
+        let previewActiveId = null;
+        let previewLastFocusedId = null;
+        const previewEntities = new Map();
+
+        fetch(`/api/profile/${encodeURIComponent(memberName)}`)
+          .then(function (response) {
+            return response.ok ? response.json() : { displayName: memberName };
+          })
+          .then(function (profile) {
+            document.getElementById("memberName").textContent = profile.displayName || memberName;
+          })
+          .catch(function () {
+            document.getElementById("memberName").textContent = memberName;
+          });
+
+        logoutBtn.addEventListener("click", function () {
+          localStorage.removeItem("nexusArenaUser");
+          localStorage.removeItem("nexusArenaProfileName");
+          window.location.href = "index.html";
+        });
+
+        sidebarToggle.addEventListener("click", function () {
+          const isOpen = sidebarContent.classList.toggle("collapsed");
+          sidebarToggle.setAttribute("aria-expanded", (!isOpen).toString());
+        });
+
+        async function fetchLeaderboard(limit) {
+          const response = await fetch(`/api/frenzy-leaderboard?limit=${encodeURIComponent(limit)}`);
+          if (!response.ok) {
+            throw new Error("Unable to load leaderboard");
+          }
+          const payload = await response.json();
+          return Array.isArray(payload.leaderboard) ? payload.leaderboard : [];
+        }
+
+        function renderMainLeaderboard(rows) {
+          if (!rows.length) {
+            mainLeaderboardList.innerHTML = '<div class="leader-item"><span>#-</span><strong>No registered scores yet</strong><em>0</em></div>';
+            return;
+          }
+
+          mainLeaderboardList.innerHTML = rows
+            .map(function (entry) {
+              return `<div class="leader-item"><span>#${entry.rank}</span><strong>${entry.displayName}</strong><em>${entry.score}</em></div>`;
+            })
+            .join("");
+        }
+
+        async function refreshMainLeaderboard() {
+          try {
+            latestLeaderboard = await fetchLeaderboard(8);
+            renderMainLeaderboard(latestLeaderboard);
+          } catch (error) {
+            console.error(error);
+          }
+        }
+
+        async function submitFrenzyScore(score, maxCombo, bonuses) {
+          const response = await fetch("/api/frenzy-score", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              username: memberName,
+              score: score,
+              maxCombo: maxCombo,
+              bonuses: bonuses
+            })
+          });
+
+          const payload = await response.json();
+          if (!response.ok) {
+            throw new Error(payload.message || "Unable to submit score");
+          }
+
+          latestLeaderboard = Array.isArray(payload.leaderboard) ? payload.leaderboard : [];
+          renderMainLeaderboard(latestLeaderboard);
+          return {
+            username: payload.username || memberName,
+            leaderboard: latestLeaderboard,
+            highScore: Number(payload.highScore) || 0
+          };
+        }
+
+        function clearPreviewEntities() {
+          previewEntities.forEach(function (_, id) {
+            const node = document.getElementById(id);
+            if (node) {
+              node.remove();
+            }
+          });
+          previewEntities.clear();
+        }
+
+        function spawnPreviewEntity() {
+          const descriptor = fruitTypes[Math.floor(Math.random() * fruitTypes.length)];
+          const id = `preview-fruit-${Date.now()}-${Math.floor(Math.random() * 10000)}`;
+          const node = document.createElement("div");
+          const size = 44 + Math.floor(Math.random() * 12);
+          const stageWidth = Math.max(frenzyStage.clientWidth, 500);
+          const x = Math.max(8, Math.floor(Math.random() * (stageWidth - size - 16)));
+
+          node.id = id;
+          node.className = `frenzy-fruit preview-fruit ${descriptor.type}`;
+          node.style.left = `${x}px`;
+          node.style.top = "-65px";
+          node.style.width = `${size}px`;
+          node.style.height = `${size}px`;
+          node.textContent = descriptor.icon;
+          frenzyViewport.appendChild(node);
+
+          previewEntities.set(id, {
+            id: id,
+            y: 0,
+            baseTop: -65,
+            size: size,
+            x: x,
+            speed: 52 + Math.random() * 24,
+            descriptor: descriptor
+          });
+        }
+
+        function focusPreviewEntity() {
+          if (previewPauseLevel > 0.2 || previewPauseTarget > 0.2) {
+            return;
+          }
+
+          const list = Array.from(previewEntities.values());
+          if (!list.length) {
+            return;
+          }
+
+          const stageHeight = Math.max(frenzyStage.clientHeight, 300);
+          const visibleTargets = list.filter(function (entity) {
+            const visualTop = entity.baseTop + entity.y;
+            const visualBottom = visualTop + entity.size;
+            return visualTop >= 8 && visualBottom <= stageHeight - 8;
+          });
+          if (!visibleTargets.length) {
+            return;
+          }
+
+          const pool = visibleTargets.length > 1
+            ? visibleTargets.filter(function (entity) { return entity.id !== previewLastFocusedId; })
+            : visibleTargets;
+          const target = pool[Math.floor(Math.random() * pool.length)];
+          const targetNode = document.getElementById(target.id);
+          if (!targetNode) {
+            return;
+          }
+
+          if (previewActiveId) {
+            const previousNode = document.getElementById(previewActiveId);
+            if (previousNode) {
+              previousNode.classList.remove("focused");
+            }
+          }
+          previewActiveId = target.id;
+          previewLastFocusedId = target.id;
+          targetNode.classList.add("focused");
+
+          const centerX = target.x + target.size / 2;
+          const centerY = target.baseTop + target.y + target.size / 2;
+          previewPauseTarget = 1;
+          previewCursor.style.left = `${centerX}px`;
+          previewCursor.style.top = `${Math.max(16, centerY)}px`;
+          frenzyViewport.style.setProperty("--focus-x", `${centerX}px`);
+          frenzyViewport.style.setProperty("--focus-y", `${Math.max(20, centerY)}px`);
+
+          previewFruitName.textContent = "Analyzing target...";
+          previewFruitHint.textContent = "Preview lock active";
+
+          if (previewInfoTimeout) {
+            clearTimeout(previewInfoTimeout);
+          }
+          if (previewZoomTimeout) {
+            clearTimeout(previewZoomTimeout);
+          }
+          if (previewReleaseTimeout) {
+            clearTimeout(previewReleaseTimeout);
+          }
+
+          previewZoomTimeout = setTimeout(function () {
+            frenzyStage.classList.add("zoom-focus");
+          }, 120);
+
+          previewInfoTimeout = setTimeout(function () {
+            previewFruitName.textContent = target.descriptor.name;
+            previewFruitHint.textContent = target.descriptor.hint;
+          }, 280);
+
+          setTimeout(function () {
+            if (previewActiveId === target.id) {
+              targetNode.classList.remove("focused");
+              previewActiveId = null;
+            }
+            frenzyStage.classList.remove("zoom-focus");
+          }, 2500);
+
+          previewReleaseTimeout = setTimeout(function () {
+            previewPauseTarget = 0;
+          }, 2500);
+        }
+
+        function animatePreview(frameTime) {
+          if (!previewLastFrame) {
+            previewLastFrame = frameTime;
+          }
+
+          const deltaSeconds = (frameTime - previewLastFrame) / 1000;
+          previewLastFrame = frameTime;
+          const stageHeight = Math.max(frenzyStage.clientHeight, 300);
+          previewPauseLevel += (previewPauseTarget - previewPauseLevel) * 0.08;
+          const motionFactor = Math.max(0.08, 1 - previewPauseLevel);
+
+          previewEntities.forEach(function (entity, id) {
+            entity.y += entity.speed * deltaSeconds * motionFactor;
+            const node = document.getElementById(id);
+            if (!node) {
+              previewEntities.delete(id);
+              return;
+            }
+            if (entity.y > stageHeight + 20) {
+              if (previewActiveId === id) {
+                previewActiveId = null;
+              }
+              previewEntities.delete(id);
+              node.remove();
+              return;
+            }
+            node.style.transform = `translateY(${entity.y}px) rotate(${entity.y * 0.16}deg)`;
+          });
+
+          previewFrameHandle = requestAnimationFrame(animatePreview);
+        }
+
+        function startPreview() {
+          clearPreviewEntities();
+          previewLastFrame = 0;
+          previewPauseLevel = 0;
+          previewPauseTarget = 0;
+          previewCursor.style.left = "22%";
+          previewCursor.style.top = "24%";
+          previewSpawnTicker = setInterval(function () {
+            if (previewPauseLevel > 0.72 || previewPauseTarget > 0.72) {
+              return;
+            }
+            if (previewEntities.size < 9) {
+              spawnPreviewEntity();
+            }
+          }, 850);
+          previewFocusTicker = setInterval(focusPreviewEntity, 2800);
+          previewFrameHandle = requestAnimationFrame(animatePreview);
+        }
+
+        function stopPreview() {
+          if (previewSpawnTicker) {
+            clearInterval(previewSpawnTicker);
+            previewSpawnTicker = null;
+          }
+          if (previewFocusTicker) {
+            clearInterval(previewFocusTicker);
+            previewFocusTicker = null;
+          }
+          if (previewFrameHandle) {
+            cancelAnimationFrame(previewFrameHandle);
+            previewFrameHandle = null;
+          }
+          if (previewInfoTimeout) {
+            clearTimeout(previewInfoTimeout);
+            previewInfoTimeout = null;
+          }
+          if (previewZoomTimeout) {
+            clearTimeout(previewZoomTimeout);
+            previewZoomTimeout = null;
+          }
+          if (previewReleaseTimeout) {
+            clearTimeout(previewReleaseTimeout);
+            previewReleaseTimeout = null;
+          }
+          if (previewActiveId) {
+            const activeNode = document.getElementById(previewActiveId);
+            if (activeNode) {
+              activeNode.classList.remove("focused");
+            }
+            previewActiveId = null;
+          }
+          previewPauseLevel = 0;
+          previewPauseTarget = 0;
+        }
+
+        function openFrenzyWindow() {
+          const gameUrl = `fruit-frenzy.html?user=${encodeURIComponent(memberName)}`;
+          const gameWindow = window.open(gameUrl, "_blank", "width=1120,height=780");
+          if (!gameWindow) {
+            window.location.href = gameUrl;
+            return;
+          }
+          gameWindow.focus();
+          return;
+
+          gameWindow.document.title = "Nexus Arena | Fruit Frenzy";
+          gameWindow.document.body.innerHTML = `
+            <style>
+              :root { --text: #edf6ff; --muted: #9fb6dd; --border: rgba(255,255,255,0.14); }
+              * { box-sizing: border-box; }
+              body { margin: 0; font-family: Inter, sans-serif; color: var(--text); background: linear-gradient(160deg, #050a14 0%, #111a2d 100%); }
+              .game-root { position: relative; min-height: 100vh; padding: 24px 22px 28px; }
+              .game-shell { max-width: 900px; margin: 0 auto; transition: filter 0.28s ease; }
+              .game-shell.finished { filter: blur(3px) brightness(0.85); }
+              .hud { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 12px; }
+              .pill { padding: 10px 12px; border-radius: 12px; border: 1px solid var(--border); background: rgba(255,255,255,0.06); backdrop-filter: blur(14px); color: var(--muted); }
+              .pill strong { color: var(--text); }
+              .stage { position: relative; height: 560px; border-radius: 18px; border: 1px solid var(--border); overflow: hidden; background: radial-gradient(circle at 20% 20%, rgba(124,92,255,0.24), transparent 42%), radial-gradient(circle at 80% 12%, rgba(51,209,255,0.18), transparent 40%), linear-gradient(180deg, rgba(7,12,22,0.95), rgba(12,20,33,0.95)); }
+              .fruit { position: absolute; display: grid; place-items: center; border-radius: 999px; border: 1px solid rgba(255,255,255,0.16); background: rgba(255,255,255,0.12); font-size: 1.8rem; cursor: pointer; user-select: none; box-shadow: 0 10px 24px rgba(0,0,0,0.32); }
+              .fruit.combo { box-shadow: 0 0 0 2px rgba(51,209,255,0.2), 0 10px 24px rgba(0,0,0,0.32); }
+              .fruit.bomb { border-color: rgba(255,84,84,0.45); background: rgba(255,84,84,0.22); }
+              .status { margin: 12px 0 0; color: #dcecff; }
+              .glass-board { position: fixed; top: 20px; right: 22px; width: 260px; border-radius: 16px; border: 1px solid var(--border); background: rgba(13, 24, 40, 0.62); backdrop-filter: blur(18px); box-shadow: 0 16px 38px rgba(0,0,0,0.32); padding: 14px 14px 12px; }
+              .glass-board h3 { margin: 0 0 8px; font-size: 1rem; }
+              .glass-board ol { margin: 0; padding-left: 18px; display: grid; gap: 8px; }
+              .glass-board li { color: #dcecff; font-size: 0.88rem; }
+              .summary-layer { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; padding: 20px; background: rgba(4,8,14,0.42); }
+              .summary-layer.show { display: flex; }
+              .summary-card { width: min(480px, 100%); border-radius: 20px; border: 1px solid var(--border); background: rgba(11, 21, 35, 0.78); backdrop-filter: blur(18px); box-shadow: 0 18px 44px rgba(0,0,0,0.42); padding: 20px; }
+              .summary-card h2 { margin: 0 0 10px; }
+              .summary-grid { display: grid; gap: 10px; margin: 12px 0 16px; }
+              .summary-row { display: flex; justify-content: space-between; gap: 10px; padding: 10px 12px; border-radius: 12px; border: 1px solid var(--border); background: rgba(255,255,255,0.04); }
+              .summary-actions { display: flex; gap: 10px; justify-content: flex-end; }
+              .btn { border: none; border-radius: 12px; padding: 10px 16px; font-weight: 700; cursor: pointer; }
+              .btn-primary { background: linear-gradient(135deg, #7c5cff, #33d1ff); color: #fff; }
+              .btn-ghost { border: 1px solid var(--border); color: var(--text); background: rgba(255,255,255,0.06); }
+            </style>
+            <div class="game-root">
+              <div class="game-shell" id="gameShell">
+                <h1 style="margin:0 0 6px;">Fruit Frenzy Arena</h1>
+                <p style="margin:0 0 12px;color:#9fb6dd;">Slice scoring fruits, chain combos, and avoid bombs.</p>
+                <div class="hud">
+                  <div class="pill">Score <strong id="popupScore">0</strong></div>
+                  <div class="pill">Combo <strong id="popupCombo">x0</strong></div>
+                  <div class="pill">Bonus <strong id="popupBonus">+0</strong></div>
+                  <div class="pill">Pace <strong id="popupPace">1.00x</strong></div>
+                  <div class="pill">Lives <strong id="popupLives">3</strong></div>
+                  <div class="pill">Time <strong id="popupTimer">60s</strong></div>
+                </div>
+                <div id="popupStage" class="stage"></div>
+                <p id="popupStatus" class="status">Round started.</p>
+              </div>
+              <aside class="glass-board">
+                <h3>Leaderboard</h3>
+                <ol id="popupLeaderboard"></ol>
+              </aside>
+              <div class="summary-layer" id="summaryLayer">
+                <div class="summary-card">
+                  <h2>Run Complete</h2>
+                  <div class="summary-grid">
+                    <div class="summary-row"><span>Score</span><strong id="summaryScore">0</strong></div>
+                    <div class="summary-row"><span>High Score (${memberName})</span><strong id="summaryHighScore">0</strong></div>
+                    <div class="summary-row"><span>Total Bonuses</span><strong id="summaryBonuses">0</strong></div>
+                    <div class="summary-row"><span>Leaderboard Place</span><strong id="summaryPlace">#-</strong></div>
+                  </div>
+                  <div class="summary-actions">
+                    <button id="summaryClose" class="btn btn-ghost" type="button">Close</button>
+                    <button id="summaryPlayAgain" class="btn btn-primary" type="button">Play Again</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `;
+
+          const popupStage = gameWindow.document.getElementById("popupStage");
+          const popupScore = gameWindow.document.getElementById("popupScore");
+          const popupCombo = gameWindow.document.getElementById("popupCombo");
+          const popupBonus = gameWindow.document.getElementById("popupBonus");
+          const popupPace = gameWindow.document.getElementById("popupPace");
+          const popupLives = gameWindow.document.getElementById("popupLives");
+          const popupTimer = gameWindow.document.getElementById("popupTimer");
+          const popupStatus = gameWindow.document.getElementById("popupStatus");
+          const popupLeaderboard = gameWindow.document.getElementById("popupLeaderboard");
+          const gameShell = gameWindow.document.getElementById("gameShell");
+          const summaryLayer = gameWindow.document.getElementById("summaryLayer");
+          const summaryScore = gameWindow.document.getElementById("summaryScore");
+          const summaryHighScore = gameWindow.document.getElementById("summaryHighScore");
+          const summaryBonuses = gameWindow.document.getElementById("summaryBonuses");
+          const summaryPlace = gameWindow.document.getElementById("summaryPlace");
+          const summaryPlayAgain = gameWindow.document.getElementById("summaryPlayAgain");
+          const summaryClose = gameWindow.document.getElementById("summaryClose");
+
+          let score = 0;
+          let combo = 0;
+          let maxCombo = 0;
+          let lastBonus = 0;
+          let totalBonuses = 0;
+          let lives = 3;
+          let secondsLeft = 60;
+          let running = false;
+          let timerTicker = null;
+          let frameHandle = null;
+          let lastFrameTime = 0;
+          let spawnAccumulator = 0;
+          const entities = new Map();
+
+          function getPaceMultiplier(scoreValue) {
+            return 1 + Math.min(scoreValue / 2500, 0.28);
+          }
+
+          function getSpawnInterval(scoreValue) {
+            return Math.max(600, 920 - Math.floor(scoreValue / 24));
+          }
+
+          function renderPopupLeaderboard(rows) {
+            popupLeaderboard.innerHTML = rows
+              .slice(0, 6)
+              .map(function (entry, index) {
+                return `<li>#${index + 1} ${entry.displayName} - ${entry.score}</li>`;
+              })
+              .join("");
+          }
+
+          function updatePopupHud() {
+            popupScore.textContent = String(score);
+            popupCombo.textContent = `x${combo}`;
+            popupBonus.textContent = `+${lastBonus}`;
+            popupPace.textContent = `${getPaceMultiplier(score).toFixed(2)}x`;
+            popupLives.textContent = String(lives);
+            popupTimer.textContent = `${secondsLeft}s`;
+            renderPopupLeaderboard(latestLeaderboard);
+          }
+
+          function clearPopupEntities() {
+            entities.forEach(function (_, id) {
+              const node = gameWindow.document.getElementById(id);
+              if (node) {
+                node.remove();
+              }
+            });
+            entities.clear();
+          }
+
+          async function endRound(reason) {
+            running = false;
+            if (timerTicker) {
+              gameWindow.clearInterval(timerTicker);
+              timerTicker = null;
+            }
+            if (frameHandle) {
+              gameWindow.cancelAnimationFrame(frameHandle);
+              frameHandle = null;
+            }
+            let leaderboardRows = latestLeaderboard;
+            let highScore = 0;
+            let submittedUsername = memberName;
+            try {
+              const result = await submitFrenzyScore(score, maxCombo, totalBonuses);
+              leaderboardRows = result.leaderboard;
+              highScore = result.highScore;
+              submittedUsername = result.username;
+            } catch (error) {
+              popupStatus.textContent = error.message;
+            }
+            renderPopupLeaderboard(leaderboardRows);
+            const playerIndex = leaderboardRows.findIndex(function (entry) { return entry.username === submittedUsername; });
+            gameShell.classList.add("finished");
+            summaryScore.textContent = String(score);
+            summaryHighScore.textContent = String(highScore);
+            summaryBonuses.textContent = String(totalBonuses);
+            summaryPlace.textContent = playerIndex >= 0 ? `#${playerIndex + 1}` : "#-";
+            popupStatus.textContent = reason;
+            summaryLayer.classList.add("show");
+          }
+
+          function spawnPopupFruit() {
+            const descriptor = fruitTypes[Math.floor(Math.random() * fruitTypes.length)];
+            const id = `popup-fruit-${Date.now()}-${Math.floor(Math.random() * 10000)}`;
+            const size = 46 + Math.floor(Math.random() * 14);
+            const stageWidth = Math.max(popupStage.clientWidth, 700);
+            const x = Math.max(10, Math.floor(Math.random() * (stageWidth - size - 20)));
+            const node = gameWindow.document.createElement("button");
+            node.id = id;
+            node.type = "button";
+            node.className = `fruit ${descriptor.type}`;
+            node.style.left = `${x}px`;
+            node.style.top = "-72px";
+            node.style.width = `${size}px`;
+            node.style.height = `${size}px`;
+            node.textContent = descriptor.icon;
+            popupStage.appendChild(node);
+
+            entities.set(id, {
+              id: id,
+              x: x,
+              y: -72,
+              speed: (82 + Math.random() * 42) * getPaceMultiplier(score),
+              size: size,
+              descriptor: descriptor
+            });
+
+            node.addEventListener("click", function () {
+              if (!running) {
+                return;
+              }
+              const item = entities.get(id);
+              if (!item) {
+                return;
+              }
+              entities.delete(id);
+              node.remove();
+
+              if (item.descriptor.type === "bomb") {
+                lives -= 1;
+                combo = 0;
+                lastBonus = 0;
+                updatePopupHud();
+                if (lives <= 0) {
+                  void endRound("Boom! No lives left.");
+                } else {
+                  popupStatus.textContent = `Bomb hit! ${lives} lives left.`;
+                }
+                return;
+              }
+
+              combo += 1;
+              maxCombo = Math.max(maxCombo, combo);
+              const base = item.descriptor.base;
+              const comboBonus = Math.floor(base * Math.min(combo, 8) * 0.14);
+              const streakBonus = combo >= 3 ? combo * 5 : 0;
+              const paceBonus = Math.floor((getPaceMultiplier(score) - 1) * 20);
+              const typeBonus = item.descriptor.type === "combo" ? 8 : 0;
+              lastBonus = comboBonus + streakBonus + paceBonus + typeBonus;
+              totalBonuses += lastBonus;
+              score += base + lastBonus;
+              updatePopupHud();
+              popupStatus.textContent = combo > 1
+                ? `Combo x${combo}! +${base + lastBonus} pts`
+                : `Great slice! +${base + lastBonus} pts`;
+            });
+          }
+
+          function animatePopup(frameTime) {
+            if (!running) {
+              return;
+            }
+            if (!lastFrameTime) {
+              lastFrameTime = frameTime;
+            }
+            const deltaSeconds = (frameTime - lastFrameTime) / 1000;
+            lastFrameTime = frameTime;
+            spawnAccumulator += deltaSeconds * 1000;
+            const stageHeight = Math.max(popupStage.clientHeight, 500);
+
+            entities.forEach(function (item, id) {
+              item.y += item.speed * deltaSeconds;
+              const node = gameWindow.document.getElementById(id);
+              if (!node) {
+                entities.delete(id);
+                return;
+              }
+              if (item.y > stageHeight + 20) {
+                entities.delete(id);
+                node.remove();
+                if (item.descriptor.type !== "bomb") {
+                  combo = 0;
+                  lastBonus = 0;
+                  lives -= 1;
+                  updatePopupHud();
+                  if (lives <= 0) {
+                    void endRound("No lives left. Round ended.");
+                  } else {
+                    popupStatus.textContent = `Missed fruit! ${lives} lives left.`;
+                  }
+                }
+                return;
+              }
+              node.style.transform = `translateY(${item.y}px) rotate(${item.y * 0.18}deg)`;
+            });
+
+            while (spawnAccumulator >= getSpawnInterval(score) && entities.size < 14) {
+              spawnPopupFruit();
+              spawnAccumulator -= getSpawnInterval(score);
+            }
+            frameHandle = gameWindow.requestAnimationFrame(animatePopup);
+          }
+
+          function startRound() {
+            summaryLayer.classList.remove("show");
+            gameShell.classList.remove("finished");
+            score = 0;
+            combo = 0;
+            maxCombo = 0;
+            lastBonus = 0;
+            totalBonuses = 0;
+            lives = 3;
+            secondsLeft = 60;
+            running = true;
+            spawnAccumulator = 0;
+            lastFrameTime = 0;
+            clearPopupEntities();
+            popupStatus.textContent = "Round started. Score big with combos.";
+            updatePopupHud();
+
+            timerTicker = gameWindow.setInterval(function () {
+              if (!running) {
+                return;
+              }
+              secondsLeft -= 1;
+              updatePopupHud();
+              if (secondsLeft <= 0) {
+                void endRound(`Time up! Final score: ${score}`);
+              }
+            }, 1000);
+
+            spawnPopupFruit();
+            frameHandle = gameWindow.requestAnimationFrame(animatePopup);
+          }
+
+          summaryPlayAgain.addEventListener("click", startRound);
+          summaryClose.addEventListener("click", function () {
+            summaryLayer.classList.remove("show");
+          });
+
+          renderPopupLeaderboard(latestLeaderboard);
+          updatePopupHud();
+          startRound();
+          gameWindow.focus();
+        }
+
+        playFrenzyBtn.addEventListener("click", openFrenzyWindow);
+        gamesPanel.classList.remove("hidden");
+        refreshMainLeaderboard();
+        leaderboardRefreshTimer = setInterval(refreshMainLeaderboard, 2500);
+        startPreview();
+        window.addEventListener("beforeunload", function () {
+          stopPreview();
+          if (leaderboardRefreshTimer) {
+            clearInterval(leaderboardRefreshTimer);
+            leaderboardRefreshTimer = null;
+          }
+        });
+      }
+    </script>
+  </body>
+</html>

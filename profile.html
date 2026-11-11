@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nexus Arena | Profile</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="account.css" />
+</head>
+<body>
+  <div class="shell">
+    <header class="page-head">
+      <a href="dashboard.html" class="brand">
+        <span class="brand-mark">N</span>
+        <span>Nexus Arena</span>
+      </a>
+      <a href="dashboard.html" class="back-link">Back to Dashboard</a>
+    </header>
+
+    <section class="hero-card">
+      <div>
+        <p class="eyebrow">Player Profile</p>
+        <h1 id="profileName">NovaK</h1>
+        <p id="profileTagline">Competitive gamer, squad leader, and ranked grinder.</p>
+        <div class="profile-badge">Logged in member</div>
+      </div>
+      <div class="card-stack">
+        <div class="info-card">
+          <span class="pill">Current Rank</span>
+          <strong>Diamond II</strong>
+          <p>MMR 2860</p>
+        </div>
+        <div class="info-card">
+          <span class="pill">Primary Role</span>
+          <strong>Entry Fragger</strong>
+          <p>Attack-minded and team-focused</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid">
+      <article class="panel">
+        <p class="eyebrow">Performance</p>
+        <h2>Player Stats</h2>
+        <div class="stat-grid">
+          <div class="stat"><span>Win Rate</span><strong>74.8%</strong></div>
+          <div class="stat"><span>K/D Ratio</span><strong>2.14</strong></div>
+          <div class="stat"><span>Matches</span><strong>128</strong></div>
+          <div class="stat"><span>Streak</span><strong>9 W</strong></div>
+        </div>
+      </article>
+
+      <article class="panel">
+        <p class="eyebrow">Identity</p>
+        <h2>Profile Details</h2>
+        <ul class="list">
+          <li><span>Username</span><strong id="profileUsername">NovaK</strong></li>
+          <li><span>Region</span><strong>Asia / Mumbai</strong></li>
+          <li><span>Team</span><strong>Team Alpha</strong></li>
+          <li><span>Member Since</span><strong>2024</strong></li>
+        </ul>
+      </article>
+
+      <article class="panel">
+        <p class="eyebrow">Recent Activity</p>
+        <h2>Match History</h2>
+        <ul class="list">
+          <li><span>Champions Open</span><strong>Win 24:19</strong></li>
+          <li><span>Weekend Clash</span><strong>Win 18:12</strong></li>
+          <li><span>Pro League Qualifier</span><strong>Loss 16:22</strong></li>
+        </ul>
+      </article>
+
+      <article class="panel">
+        <p class="eyebrow">Connected</p>
+        <h2>Linked Accounts</h2>
+        <ul class="list">
+          <li><span>Email</span><strong>Verified</strong></li>
+          <li><span>Discord</span><strong>Connected</strong></li>
+          <li><span>Steam</span><strong>Linked</strong></li>
+          <li><span>Two-factor</span><strong>Enabled</strong></li>
+        </ul>
+      </article>
+    </section>
+  </div>
+
+  <script>
+    const user = localStorage.getItem("nexusArenaUser") || "NovaK";
+
+    fetch(`/api/profile/${encodeURIComponent(user)}`)
+      .then(function (response) {
+        return response.ok ? response.json() : { displayName: user };
+      })
+      .then(function (profile) {
+        const displayName = profile.displayName || user;
+        document.getElementById("profileName").textContent = displayName;
+        document.getElementById("profileUsername").textContent = displayName;
+        document.title = `Nexus Arena | ${displayName} Profile`;
+      })
+      .catch(function () {
+        document.getElementById("profileName").textContent = user;
+        document.getElementById("profileUsername").textContent = user;
+        document.title = `Nexus Arena | ${user} Profile`;
+      });
+  </script>
+</body>
+</html>

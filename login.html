@@ -5,67 +5,155 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign In / Sign Up</title>
     <style>
+        :root {
+            --bg: #070b14;
+            --panel: rgba(13, 22, 35, 0.82);
+            --panel-strong: #0e1829;
+            --primary: #7c5cff;
+            --primary-strong: #5d41f5;
+            --accent: #33d1ff;
+            --text: #edf4ff;
+            --muted: #9badcb;
+            --border: rgba(255,255,255,0.09);
+        }
+
+        * { box-sizing: border-box; }
+
         body {
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
-            background-color: silver;
-            background-image: url('https://www.coolkatana.com/cdn/shop/articles/meimei_Draw_a_traditional_Japanese_samurai_and_hold_for_a_3Defe_f210a4b5-f11a-4afc-838c-f5ba18f74aed.png?v=1680838271');
-            background-size: 100% 100%;
-            background-repeat: no-repeat;
+            font-family: 'Inter', sans-serif;
+            background:
+                radial-gradient(circle at top left, rgba(124, 92, 255, 0.28), transparent 26%),
+                radial-gradient(circle at bottom right, rgba(51, 209, 255, 0.18), transparent 22%),
+                linear-gradient(135deg, #070b14 0%, #10192a 100%);
+            color: var(--text);
         }
+
+        #container {
+            width: min(420px, calc(100% - 30px));
+            padding: 24px;
+            border-radius: 24px;
+            border: 1px solid var(--border);
+            background: rgba(12, 18, 27, 0.75);
+            box-shadow: 0 18px 50px rgba(2, 6, 14, 0.6);
+            backdrop-filter: blur(14px);
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
         form {
-            background-color: rgba(255, 255, 255, 0.3);
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            width: 350px;
-            backdrop-filter: blur(10px);
+            background: rgba(255,255,255,0.02);
+            padding: 22px 18px 18px;
+            border-radius: 18px;
+            border: 1px solid var(--border);
         }
+
+        h3 {
+            margin: 0 0 18px;
+            font-size: 1.7rem;
+            text-align: center;
+            letter-spacing: -0.04em;
+        }
+
         .input-container {
             position: relative;
-            width: 80%;
-            margin-bottom: 10px;
+            width: 100%;
+            margin-bottom: 14px;
         }
+
         input[type="text"], input[type="password"] {
-            width: calc(100% - 40px); /* Adjust width to accommodate space for the toggle symbol */
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+            width: 100%;
+            padding: 13px 46px 13px 14px;
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 12px;
+            background: rgba(255,255,255,0.03);
+            color: var(--text);
             font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
         }
+
+        input::placeholder {
+            color: var(--muted);
+        }
+
+        input:focus {
+            border-color: rgba(51, 209, 255, 0.9);
+            box-shadow: 0 0 0 3px rgba(51, 209, 255, 0.12);
+        }
+
         .toggle-password {
             position: absolute;
-            right: -25px; /* Position the toggle symbol outside the input box */
+            right: 12px;
             top: 50%;
             transform: translateY(-50%);
             cursor: pointer;
-            font-size: 22px;
-            color: #555;
+            font-size: 20px;
+            opacity: 0.8;
         }
+
         .button {
-            display: inline-block;
-            color: #fff;
-            padding: 10px;
-            background-color: #38D2D2;
-            border-radius: 5px;
-            font-weight: bold;
-            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 120px;
+            padding: 12px 16px;
             border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 14px;
             cursor: pointer;
             text-align: center;
             text-decoration: none;
-            box-shadow: inset -3px -3px 9px rgba(255, 255, 255, 0.25), inset 0px 3px 9px rgba(255, 255, 255, 0.3),
-                        inset 0px 1px 1px rgba(255, 255, 255, 0.6), inset 0px -8px 36px rgba(0, 0, 0, 0.3),
-                        inset 0px 1px 5px rgba(255, 255, 255, 0.6), 2px 19px 31px rgba(0, 0, 0, 0.2);
+            color: white;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            box-shadow: 0 12px 25px rgba(124, 92, 255, 0.25);
+            transition: transform 0.2s ease, filter 0.2s ease;
         }
+
         .button:hover {
-            transform: scale(1.05);
+            transform: translateY(-1px);
+            filter: brightness(1.05);
         }
+
         .hidden {
             display: none;
+        }
+
+        #loginMessage,
+        #signupMessage {
+            margin: 12px 0 0;
+            min-height: 20px;
+            color: var(--muted);
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        #passwordMismatchMessage {
+            margin: -4px 0 10px;
+            min-height: 16px;
+            color: #ff8f8f;
+            font-size: 0.82rem;
+            text-align: left;
+            padding-left: 4px;
+        }
+
+        .mode-toggle {
+            display: block;
+            margin-top: 14px;
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.92rem;
+            text-align: center;
         }
     </style>
 </head>
@@ -73,7 +161,7 @@
     <div id="container">
         <div id="button-container" class="button-container">
             <center><a href="index.html" class="button">Home</a>
-            <button id="showSignUp" class="button">Sign Up</button></center>
+            </center>
         </div>
         <form id="signInForm" onsubmit="handleSignIn(event)">
             <h3 style="color:white;"><center>Sign In</center></h3>
@@ -87,6 +175,7 @@
             <div class="button-container">
                 <center><button type="submit" class="button">Login</button></center>
             </div>
+            <a href="login.html?mode=signup" class="mode-toggle">Need an account? Sign Up</a>
             <p id="loginMessage"></p>
         </form>
         <form id="signUpForm" class="hidden" onsubmit="handleSignUp(event)">
@@ -102,9 +191,11 @@
                 <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
                 <span class="toggle-password" onclick="togglePasswordVisibility('confirmPassword', this)">🐵</span>
             </div>
+            <p id="passwordMismatchMessage" aria-live="polite"></p>
             <div class="button-container">
                 <button type="submit" class="button">Sign Up</button>
             </div>
+            <a href="login.html" class="mode-toggle">Already have an account? Login</a>
             <p id="signupMessage"></p>
         </form>
     </div>
@@ -114,11 +205,36 @@
         // Toggle between forms
         const signInForm = document.getElementById("signInForm");
         const signUpForm = document.getElementById("signUpForm");
+        const loginMode = new URLSearchParams(window.location.search).get("mode") === "signup";
+        const signupPasswordInput = document.getElementById("signupPassword");
+        const confirmPasswordInput = document.getElementById("confirmPassword");
+        const passwordMismatchMessage = document.getElementById("passwordMismatchMessage");
 
-        document.getElementById("showSignUp").addEventListener("click", () => {
+        function validatePasswordMatch() {
+            const password = signupPasswordInput.value;
+            const confirmPassword = confirmPasswordInput.value;
+
+            if (!confirmPassword) {
+                passwordMismatchMessage.textContent = "";
+                return true;
+            }
+
+            if (password !== confirmPassword) {
+                passwordMismatchMessage.textContent = "Passwords do not match.";
+                return false;
+            }
+
+            passwordMismatchMessage.textContent = "";
+            return true;
+        }
+
+        signupPasswordInput.addEventListener("input", validatePasswordMatch);
+        confirmPasswordInput.addEventListener("input", validatePasswordMatch);
+
+        if (loginMode) {
             signInForm.classList.add("hidden");
             signUpForm.classList.remove("hidden");
-        });
+        }
 
         // Handle password visibility toggle
         function togglePasswordVisibility(inputId, icon) {
@@ -131,7 +247,7 @@
 
     // Add fade-out effect
     icon.style.transition = "opacity 0.25s ease-in-out";
-    icon.style.opacity = 0; 
+    icon.style.opacity = 0;
 
     setTimeout(() => {
         // Toggle password visibility
@@ -163,7 +279,10 @@
                 const result = await response.json();
                 loginMessage.textContent = result.message;
                 loginMessage.style.color = response.ok ? 'white' : 'red';
-                if (response.ok) setTimeout(() => window.location.href = "logo.html", 1000);
+                if (response.ok) {
+                    localStorage.setItem("nexusArenaUser", username);
+                    setTimeout(() => window.location.href = "dashboard.html", 1000);
+                }
             } catch (error) {
                 console.error(error);
                 loginMessage.textContent = 'An error occurred. Please try again.';
@@ -176,12 +295,9 @@
             event.preventDefault();
             const username = document.getElementById("signupUsername").value;
             const password = document.getElementById("signupPassword").value;
-            const confirmPassword = document.getElementById("confirmPassword").value;
             const signupMessage = document.getElementById("signupMessage");
 
-            if (password !== confirmPassword) {
-                signupMessage.textContent = "Passwords do not match.";
-                signupMessage.style.color = "red";
+            if (!validatePasswordMatch()) {
                 return;
             }
 
@@ -196,11 +312,10 @@
                 signupMessage.textContent = result.message;
                 signupMessage.style.color = response.ok ? 'white' : 'red';
                 if (response.ok) {
+                    localStorage.setItem("nexusArenaUser", username);
                     setTimeout(() => {
-                        signUpForm.reset();
-                        signUpForm.classList.add("hidden");
-                        signInForm.classList.remove("hidden");
-                    }, 1500);
+                        window.location.href = "dashboard.html";
+                    }, 1000);
                 }
             } catch (error) {
                 console.error(error);

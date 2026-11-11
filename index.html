@@ -3,39 +3,296 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Legacy of the Samurai</title>
+    <title>Nexus Arena | Competitive Gaming Platform</title>
+    <meta name="description" content="Professional gaming platform landing page for tournaments, team battles, and competitive play.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="login.html">Login</a></li>
-            </ul>
-        </nav>
-    </header> 
-    <section class="hero">
-        <div class="hero-content">
-            <h1>The Legacy of the Samurai</h1>
-            <p>Experience the unwavering power and indomitable spirit.</p>
+    <div class="background-glow glow-one"></div>
+    <div class="background-glow glow-two"></div>
 
-            <!-- 10K+ Button -->
-<a href="Social.html">
-                <button type="submit">10K+</button>
-        </a>
+    <header class="topbar">
+<div class="container nav-wrap">
+    <a href="#" class="brand" aria-label="Nexus Arena home">
+        <span class="brand-mark">N</span>
+        <span>Nexus Arena</span>
+    </a>
+
+    <nav class="main-nav" aria-label="Main navigation">
+        <a href="#home">Home</a>
+        <a href="#games">Games</a>
+        <a href="#tournaments">Tournaments</a>
+        <a href="#leaderboards">Leaderboards</a>
+        <a href="#community">Community</a>
+    </nav>
+
+    <div class="nav-actions">
+        <a href="login.html" class="btn btn-primary">Login</a>
+        <a href="login.html?mode=signup" class="btn btn-primary">Join Now</a>
+    </div>
+</div>
+    </header>
+
+    <main id="home">
+<section class="hero container">
+    <div class="hero-copy">
+        <p class="eyebrow">LEVEL UP EVERY MATCH</p>
+        <h1>Play smarter. Compete harder. Win together.</h1>
+        <p class="subtitle">
+            Enter a premium esports experience built for players, teams, and creators who want high-stakes action, skill-based matchmaking, and world-class rewards.
+        </p>
+
+        <div class="hero-actions">
+            <a href="login.html" class="btn btn-primary">Play Free</a>
+            <a href="#tournaments" class="btn btn-secondary">View Tournaments</a>
         </div>
 
-        <div class="hero-image">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnI_1qVRmUj_CYU1DbkOUlPusrasRVnDVJrg&usqp=CAUpng" alt="Samurai">
-        </div>
-    </section>
+        <ul class="hero-meta" aria-label="Platform statistics">
+            <li><strong>180K+</strong><span>Players online</span></li>
+            <li><strong>2400+</strong><span>Daily matches</span></li>
+            <li><strong>4.9/5</strong><span>Player rating</span></li>
+        </ul>
+    </div>
 
-    <footer>
-        <p>© 2024. All rights reserved.</p>
+    <div class="hero-visual" aria-label="Gaming platform preview card">
+        <div class="floating-card card-main">
+            <div class="player-badges">
+                <span>Live</span>
+                <span>Ranked</span>
+            </div>
+
+            <div class="game-poster poster-hero">
+                <div class="poster-glow"></div>
+                <div class="poster-badges">
+                    <span>Ranked</span>
+                    <span>Live</span>
+                </div>
+                <div class="poster-title-block">
+                    <small>Season 21</small>
+                    <strong>STRIKE</strong>
+                </div>
+            </div>
+
+            <div class="scoreboard">
+                <div>
+                    <small>Team Alpha</small>
+                    <strong>24</strong>
+                </div>
+                <div class="divider"></div>
+                <div>
+                    <small>Team Bravo</small>
+                    <strong>19</strong>
+                </div>
+            </div>
+        </div>
+
+        <div class="floating-card stats-card">
+            <p>Season Reward</p>
+            <strong>5,420 XP</strong>
+            <span>+12% this week</span>
+        </div>
+    </div>
+</section>
+
+<section class="trust-strip">
+    <div class="container trust-content">
+        <span>Trusted by creators and teams worldwide</span>
+        <div class="partner-logos" aria-label="Partner brands">
+            <span>Blizzard</span>
+            <span>Epic</span>
+            <span>PlayHub</span>
+            <span>Rocket</span>
+            <span>PixelArc</span>
+        </div>
+    </div>
+</section>
+
+<section id="games" class="section container">
+    <div class="section-heading">
+        <p class="eyebrow">FEATURED GAMES</p>
+        <h2>Battle across next-gen arenas</h2>
+    </div>
+
+    <div class="game-grid">
+        <article class="game-card featured">
+            <div class="game-image game-1"></div>
+            <div class="game-body">
+                <div class="tag-row">
+                    <span class="tag">FPS</span>
+                    <span class="players">1.8K playing</span>
+                </div>
+                <h3>Strike Protocol</h3>
+                <p>Precision shooter action with tactical team-based rounds and ranked ladders.</p>
+            </div>
+        </article>
+
+        <article class="game-card">
+            <div class="game-image game-2"></div>
+            <div class="game-body">
+                <div class="tag-row">
+                    <span class="tag">MOBA</span>
+                    <span class="players">2.4K playing</span>
+                </div>
+                <h3>Empire Clash</h3>
+                <p>Build strategies, master lanes, and dominate coordinated team fights.</p>
+            </div>
+        </article>
+
+        <article class="game-card">
+            <div class="game-image game-3"></div>
+            <div class="game-body">
+                <div class="tag-row">
+                    <span class="tag">RPG</span>
+                    <span class="players">1.2K playing</span>
+                </div>
+                <h3>Mythic Rift</h3>
+                <p>Explore vast worlds, collect gear, and challenge elite bosses with friends.</p>
+            </div>
+        </article>
+    </div>
+</section>
+
+<section class="section feature-band">
+    <div class="container feature-layout">
+        <div class="feature-copy">
+            <p class="eyebrow">WHY PLAYERS JOIN</p>
+            <h2>Built for competitive momentum</h2>
+            <p>
+                From quick matchmaking to tournament brackets and social squads, every feature is designed to keep your focus on performance and progress.
+            </p>
+        </div>
+
+        <div class="feature-grid">
+            <article>
+                <span class="feature-icon">⚡</span>
+                <h3>Instant Matchmaking</h3>
+                <p>Queue into skill-matched lobbies and drop into the action in seconds.</p>
+            </article>
+            <article>
+                <span class="feature-icon">🏆</span>
+                <h3>Elite Tournaments</h3>
+                <p>Compete in ranking events with visible rewards, rankings, and progression.</p>
+            </article>
+            <article>
+                <span class="feature-icon">🎮</span>
+                <h3>Team Management</h3>
+                <p>Coordinate with teammates, track stats, and build a dominant roster.</p>
+            </article>
+            <article>
+                <span class="feature-icon">🎁</span>
+                <h3>Reward Engine</h3>
+                <p>Unlock cosmetics, XP boosts, and seasonal perks as you climb the ladder.</p>
+            </article>
+        </div>
+    </div>
+</section>
+
+<section id="tournaments" class="section container">
+    <div class="section-heading">
+        <p class="eyebrow">LIVE TOURNAMENTS</p>
+        <h2>Fresh battles every week</h2>
+    </div>
+
+    <div class="tournament-list">
+        <article class="tournament-item">
+            <div>
+                <p class="match-type">Weekend Clash</p>
+                <h3>Champions Open</h3>
+            </div>
+            <div class="meta-block">
+                <span>12 Teams</span>
+                <span>May 18</span>
+            </div>
+            <a href="login.html" class="link-btn">Register</a>
+        </article>
+
+        <article class="tournament-item">
+            <div>
+                <p class="match-type">Ranked Circuit</p>
+                <h3>Pro League Qualifiers</h3>
+            </div>
+            <div class="meta-block">
+                <span>28 Teams</span>
+                <span>May 21</span>
+            </div>
+            <a href="login.html" class="link-btn">Join</a>
+        </article>
+
+        <article class="tournament-item">
+            <div>
+                <p class="match-type">Community Cup</p>
+                <h3>Creator Invitational</h3>
+            </div>
+            <div class="meta-block">
+                <span>64 Players</span>
+                <span>May 25</span>
+            </div>
+            <a href="login.html" class="link-btn">View</a>
+        </article>
+    </div>
+</section>
+
+<section id="leaderboards" class="section leaderboard-section">
+    <div class="container leaderboard-wrap">
+        <div class="leaderboard-copy">
+            <p class="eyebrow">LEADERBOARDS</p>
+            <h2>Climb the global ladder</h2>
+            <p>Track your wins, streaks, rankings, and performance metrics against elite players worldwide.</p>
+        </div>
+
+        <div class="leaderboard-table">
+            <div class="table-row table-head">
+                <span>Position</span>
+                <span>Player</span>
+                <span>MMR</span>
+            </div>
+            <div class="table-row">
+                <span>#01</span>
+                <span>NovaK</span>
+                <span>2860</span>
+            </div>
+            <div class="table-row">
+                <span>#02</span>
+                <span>Vex</span>
+                <span>2745</span>
+            </div>
+            <div class="table-row">
+                <span>#03</span>
+                <span>Echo</span>
+                <span>2689</span>
+            </div>
+            <div class="table-row">
+                <span>#04</span>
+                <span>Blaze</span>
+                <span>2621</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="community" class="section cta-section">
+    <div class="container cta-box">
+        <div>
+            <p class="eyebrow">READY TO JOIN?</p>
+            <h2>Create your squad and start dominating.</h2>
+        </div>
+        <a href="login.html?mode=signup" class="btn btn-primary">Create Account</a>
+    </div>
+</section>
+    </main>
+
+    <footer class="site-footer">
+<div class="container footer-wrap">
+    <p>© 2025 Nexus Arena. All rights reserved.</p>
+    <div class="footer-links">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="Social.html">Community</a>
+    </div>
+</div>
     </footer>
-<!-- redeploy -->
 </body>
 </html>
-<div id="loginForm" style="display: none;">
-        
